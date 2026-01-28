@@ -1,0 +1,34 @@
+public class Book {
+    private static int nextID = 1; //Needed for copies of same books
+    private int ID;
+    private String title;
+    private double price;
+    private int edition;
+    
+    public void Book(String title, double price) {
+        Book(title, price, 1);
+    }
+    
+    public void Book(String title, double price, int edition) {
+        this.title = title;
+        this.price = price;
+        this.edition = edition;
+        this.ID = advanceID();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public int getEdition() {
+        return edition;
+    }
+
+    public static int advanceID() {
+        return nextID++;
+    }
+}
