@@ -17,11 +17,11 @@ public class User {
     private Type type; 
     private double money;
 
-    public User(Type type) {
+    User(Type type) {
         this(type, 0);
     }
 
-    public User(Type type, double balance) {
+    User(Type type, double balance) {
         this.type = type;
         this.money = balance;
         this.ID = advanceID();

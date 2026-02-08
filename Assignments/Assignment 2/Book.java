@@ -5,11 +5,11 @@ public class Book {
     private double price;
     private int edition;
     
-    public void Book(String title, double price) {
-        Book(title, price, 1);
+    Book(String title, double price) {
+        this(title, price, 1);
     }
     
-    public void Book(String title, double price, int edition) {
+    Book(String title, double price, int edition) {
         this.title = title;
         this.price = price;
         this.edition = edition;
@@ -27,8 +27,16 @@ public class Book {
     public int getEdition() {
         return edition;
     }
+    
+    public int getID() {
+        return ID;
+    }
 
     public static int advanceID() {
         return nextID++;
+    }
+    
+    public void displayBook() {
+        System.out.println(ID + ". " + title + " | Edition:" + edition + " | $" + price);
     }
 }

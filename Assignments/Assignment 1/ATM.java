@@ -38,17 +38,16 @@ public class ATM {
                 Scanner in = new Scanner(System.in);
                 int bool = in.nextInt();
                 in.close();
-                if (bool == 1) {
-                    double remaining = currentBalance;
-                    user.setBalance(0);
-                    return remaining;
-                }
-                else if (bool == 0) {
-                    return 0;
-                }
-                else {
-                    System.out.println("Invalid input\n");
-                    return -1;
+                switch (bool) {
+                    case 1:
+                        double remaining = currentBalance;
+                        user.setBalance(0);
+                        return remaining;
+                    case 2:
+                        return 0;
+                    default:
+                        System.out.println("Invalid input\n");
+                        return -1;
                 }
             }
             else {
@@ -104,10 +103,16 @@ public class ATM {
             System.out.println("Enter User Type:");
             System.out.println("Premium: 15\nRegular: 7\nBasic: 3");
             int userTypeCode = in.nextInt();
-            Type userType;
-            if (userTypeCode == 15) userType = Type.PREMIUM;
-            else if (userTypeCode == 7) userType = Type.REGULAR;
-            else userType = Type.BASIC;
+            Type userType = switch (userTypeCode) {
+                case 15:
+                    yield Type.PREMIUM;
+                case 7:
+                    yield Type.REGULAR;
+                case 3:
+                    yield Type.BASIC;
+                default:
+                    yield Type.BASIC;
+            };
             
             System.out.println("Enter Initial Balance:");
             double balance = in.nextDouble();
