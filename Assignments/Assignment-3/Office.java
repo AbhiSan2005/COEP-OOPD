@@ -37,7 +37,6 @@ public class Office {
         while (Continue) {
             System.out.println("Choices:\n1.Display 2.Change Employee Bonus/Rating 3.Add Employees 4.Quit");
             int choice = in.nextInt();
-            // in.nextLine();
 
             switch (choice) {
                 case 1:
@@ -47,7 +46,6 @@ public class Office {
                     office.displayEmployees();
                     System.out.println("Enter ID of Employees:");
                     int employeeID = in.nextInt();
-                    // in.nextLine();
                     
                     Employee currentEmployee = office.getEmployeeById(employeeID);
                     currentEmployee.display();
@@ -56,17 +54,14 @@ public class Office {
                     while (changeContinue) {
                         System.out.println("Choices:\n1.Change Bonus 2. Change Rating 3.Done");
                         int change = in.nextInt();
-                        // in.nextLine();
                         if (change == 1) {
                             System.out.println("Enter amount:");
                             double bonus = in.nextDouble();
-                            // in.nextLine();
                             currentEmployee.setBonus(bonus);
                         }
                         else if (change == 2) {
                             System.out.println("Enter rating(1-5):");
                             int rating = in.nextInt();
-                            // in.nextLine();
                             if (rating > 5 || rating < 1) {
                                 System.out.println("Enter number between 1 and 5");
                                 continue;
@@ -86,12 +81,14 @@ public class Office {
                 case 3:
                     System.out.println("Enter ID:");
                     int id = in.nextInt();
-                    // in.nextLine();
+                    if (office.getEmployeeById(id)) System.out.println("Employee already exists");
+                   
                     System.out.println("Enter Name:");
                     String name = in.nextLine();
+                    
                     System.out.println("Enter Salary:");
                     double salary = in.nextDouble();
-                    // in.nextLine();
+                    
                     employees.add(new Employee(id, name, salary));
                     office.displayEmployees();
                     break;

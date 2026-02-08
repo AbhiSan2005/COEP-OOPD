@@ -35,8 +35,8 @@ public class Employee {
 
     // Depending on the rating given to the employee, the bonus is calculated as bonus amount * rating
     public void setRating(int rating) {
+        setBonus((bonus/this.rating) * rating);
         this.rating = rating;
-        setBonus(this.bonus*rating);
     }
 
     public int getID() {
