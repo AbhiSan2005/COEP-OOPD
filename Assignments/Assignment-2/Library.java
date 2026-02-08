@@ -64,7 +64,7 @@ public class Library {
     }
     
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         
         ArrayList<Book> booksA = new ArrayList<>();
         booksA.add(new Book("Harry Potter and the Philosopher's Stone", 450.00, 1));
@@ -88,25 +88,25 @@ public class Library {
         while (Continue) {
             System.out.println("Current Library: " + (currentLibrary == A ? "A" : "B"));
             System.out.println("1. Add book  2. Issue  3. Return  4. Display  5. Change library  6. Exit");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
+            int choice = in.nextInt();
+            in.nextLine();
             
             switch (choice) {
                 case 1:
                     System.out.print("Title: ");
-                    String title = scanner.nextLine();
+                    String title = in.nextLine();
                     System.out.print("Price: ");
-                    double price = scanner.nextDouble();
+                    double price = in.nextDouble();
                     System.out.print("Edition: ");
-                    int edition = scanner.nextInt();
-                    scanner.nextLine();
+                    int edition = in.nextInt();
+                    in.nextLine();
                     currentLibrary.addBook(new Book(title, price, edition));
                     break;
                     
                 case 2:
                     System.out.print("Book ID to issue: ");
-                    int issueID = scanner.nextInt();
-                    scanner.nextLine();
+                    int issueID = in.nextInt();
+                    in.nextLine();
                     Book toIssue = currentLibrary.getBookByID(issueID, false);
                     if (toIssue != null) currentLibrary.issue(toIssue);
                     else System.out.println("Invalid!\n");
@@ -114,8 +114,8 @@ public class Library {
                     
                 case 3:
                     System.out.print("Book ID to return: ");
-                    int returnID = scanner.nextInt();
-                    scanner.nextLine();
+                    int returnID = in.nextInt();
+                    in.nextLine();
                     Book toReturn = currentLibrary.getBookByID(returnID, true);
                     if (toReturn != null) currentLibrary.Return(toReturn);
                     else System.out.println("Invalid!\n");
@@ -127,8 +127,8 @@ public class Library {
                     
                 case 5:
                     System.out.print("1. Library A  2. Library B\nChoice: ");
-                    int libraryChoice = scanner.nextInt();
-                    scanner.nextLine();
+                    int libraryChoice = in.nextInt();
+                    in.nextLine();
                     if (libraryChoice == 1) currentLibrary = A;
                     else if (libraryChoice == 2) currentLibrary = B;
                     else System.out.println("Invalid!\n");
@@ -143,6 +143,6 @@ public class Library {
                     break;
             }
         }
-        scanner.close();
+        in.close();
     }
 }
