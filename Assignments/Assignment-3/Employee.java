@@ -3,6 +3,7 @@ public class Employee {
     private int rating;
     private double salary;
     private double bonus;
+    private double bonusAmount;
     private String name;
 
     Employee(int id, String name) {
@@ -23,6 +24,7 @@ public class Employee {
         this.salary = salary;
         this.rating = rating;
         this.bonus = bonus;
+        this.bonusAmount = bonus * rating;
     }
 
     public void setSalary(double salary) {
@@ -31,11 +33,16 @@ public class Employee {
 
     public void setBonus(double bonus) {
         this.bonus = bonus;
+        setBonusAmount(bonus * rating);
+    }
+
+    public void setBonusAmount(double bonusAmount) {
+        this.bonusAmount = bonusAmount;
     }
 
     // Depending on the rating given to the employee, the bonus is calculated as bonus amount * rating
     public void setRating(int rating) {
-        setBonus((bonus/this.rating) * rating);
+        setBonusAmount(bonus * rating);
         this.rating = rating;
     }
 
@@ -44,6 +51,6 @@ public class Employee {
     }
 
     public void display() {
-        System.out.println(ID + ": " + name + " | Salary: " + salary + " | Bonus: " + bonus + " | Rating: " + rating);
+        System.out.println(ID + ": " + name + " | Base Salary: " + salary + " | Bonus: " + bonus + " | Rating: " + rating + " |Total Salary: " + (salary+bonusAmount));
     }
 }

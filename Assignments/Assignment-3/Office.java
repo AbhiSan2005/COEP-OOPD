@@ -81,7 +81,7 @@ public class Office {
                 case 3:
                     System.out.println("Enter ID:");
                     int id = in.nextInt();
-                    if (office.getEmployeeById(id)) System.out.println("Employee already exists");
+                    if (office.getEmployeeById(id) != null) System.out.println("Employee already exists");
                    
                     System.out.println("Enter Name:");
                     String name = in.nextLine();
