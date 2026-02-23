@@ -7,6 +7,10 @@ public class Car extends Automatic{
         System.out.println("Po!");
     }
 
+    public void honk(String msg) {
+        System.out.println(msg + '\n');
+    }
+
     @Override
     public void displayInfo() {
         System.out.println("Type: Car\n");

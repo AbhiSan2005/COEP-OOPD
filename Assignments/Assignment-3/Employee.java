@@ -1,4 +1,5 @@
 public class Employee {
+    private static int nextID = 1;
     private int ID;
     private int rating;
     private double salary;
@@ -6,20 +7,20 @@ public class Employee {
     private double bonusAmount;
     private String name;
 
-    Employee(int id, String name) {
-        this(id, name, 10000, 0, 1);
+    public Employee(String name) {
+        this(name, 10000, 0, 1);
     }
 
-    Employee(int id, String name, double salary) {
-        this(id, name, salary, 0, 1);
+    public Employee(String name, double salary) {
+        this(name, salary, 0, 1);
     }
 
-    Employee(int id, String name, double salary, double bonus) {
-        this(id, name, salary, bonus, 1);
+    public Employee(String name, double salary, double bonus) {
+        this(name, salary, bonus, 1);
     }
 
-    Employee(int id, String name, double salary, double bonus, int rating) {
-        this.ID = id;
+    public Employee(String name, double salary, double bonus, int rating) {
+        this.ID = advanceID();
         this.name = name;
         this.salary = salary;
         this.rating = rating;
@@ -36,7 +37,7 @@ public class Employee {
         setBonusAmount(bonus * rating);
     }
 
-    public void setBonusAmount(double bonusAmount) {
+    private void setBonusAmount(double bonusAmount) {
         this.bonusAmount = bonusAmount;
     }
 
@@ -47,10 +48,14 @@ public class Employee {
     }
 
     public int getID() {
-        return ID;
+        return this.ID;
     }
 
     public void display() {
         System.out.println(ID + ": " + name + " | Base Salary: " + salary + " | Bonus: " + bonus + " | Rating: " + rating + " |Total Salary: " + (salary+bonusAmount));
+    }
+
+    private static int advanceID() {
+        return nextID++;
     }
 }

@@ -8,7 +8,7 @@ public class Automatic extends Vehicle {
 
     @Override
     public void displayInfo() {
-        System.out.println("Gears: Automatic\n");
+        System.out.println("Gear-Type: Automatic\n");
         super.displayInfo();
         System.out.println("Mileage: " + mileage);
     }

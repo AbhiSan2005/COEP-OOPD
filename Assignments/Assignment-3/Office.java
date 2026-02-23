@@ -26,28 +26,30 @@ public class Office {
     public static void main(String[] args) {
         ArrayList<Employee> employees = new ArrayList<>();
         //Set employees here
-        employees.add(new Employee(1, "John", 50000, 1000, 3));
-        employees.add(new Employee(2, "Sarah", 60000, 1500, 4));
-        employees.add(new Employee(3, "Mike", 45000));
+        employees.add(new Employee("John", 50000, 1000, 3));
+        employees.add(new Employee("Sarah", 60000, 1500, 4));
+        employees.add(new Employee("Mike", 45000));
         
         Office office = new Office(employees);
 
         Scanner in = new Scanner(System.in);
-        boolean Continue = true;
-        while (Continue) {
+        boolean continueLoop = true;
+        while (continueLoop) {
             System.out.println("Choices:\n1.Display 2.Change Employee Bonus/Rating 3.Add Employees 4.Quit");
             int choice = in.nextInt();
 
             switch (choice) {
-                case 1:
-                    office.displayEmployees();
-                    break;
-                case 2:
+                case 1 -> office.displayEmployees();
+                case 2 -> {
                     office.displayEmployees();
                     System.out.println("Enter ID of Employees:");
                     int employeeID = in.nextInt();
                     
                     Employee currentEmployee = office.getEmployeeById(employeeID);
+                    if (currentEmployee == null) {
+                        System.out.println("Employee not found!");
+                        break;
+                    }
                     currentEmployee.display();
                     
                     boolean changeContinue = true;
@@ -70,6 +72,7 @@ public class Office {
                         }
                         else if (change == 3) {
                             changeContinue = false;
+                            break;
                         }
                         else {
                             System.out.println("Choose either 1, 2, or 3");
@@ -77,26 +80,23 @@ public class Office {
                         currentEmployee.display();
                     }
                     office.displayEmployees();
-                    break;
-                case 3:
-                    System.out.println("Enter ID:");
-                    int id = in.nextInt();
-                    if (office.getEmployeeById(id) != null) System.out.println("Employee already exists");
-                   
+                }
+                case 3 -> {
+                    in.nextLine();
                     System.out.println("Enter Name:");
                     String name = in.nextLine();
                     
                     System.out.println("Enter Salary:");
                     double salary = in.nextDouble();
                     
-                    employees.add(new Employee(id, name, salary));
+                    employees.add(new Employee(name, salary));
                     office.displayEmployees();
+                }
+                case 4 -> continueLoop = false;
+                default -> {
+                    System.out.println("Invalid Choice\nExiting as default");
                     break;
-                case 4:
-                    Continue = false;
-                    break;
-                default:
-                    break;
+                }
             }
         }
         in.close();

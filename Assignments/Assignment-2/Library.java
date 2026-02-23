@@ -21,7 +21,7 @@ public class Library {
         else System.out.println("Not found!\n");
     }
 
-    public void Return(Book toBeReturned) {
+    public void returnBook(Book toBeReturned) {
         if (issued.contains(toBeReturned)) {
             issued.remove(toBeReturned);
             books.add(toBeReturned);
@@ -41,14 +41,10 @@ public class Library {
     
     public void displayBooks() {
         System.out.println("Available Books:\n");
-        for (int i = 0; i < books.size(); i++) {
-            books.get(i).displayBook();
-        }
+        for (Book b : books) b.displayBook();
         
         System.out.println("\nIssued Books:\n");
-        for (int i = 0; i < issued.size(); i++) {
-            issued.get(i).displayBook();
-        }
+        for (Book b : issued) b.displayBook();
         
         System.out.println("\nIssued %: " + String.format("%.2f", getPercentage()) + "%");
     }
@@ -84,14 +80,15 @@ public class Library {
         Library B = new Library(booksB);
         Library currentLibrary = A;
 
-        boolean Continue = true;
-        while (Continue) {
+        boolean continueLoop = true;
+        while (continueLoop) {
             System.out.println("Current Library: " + (currentLibrary == A ? "A" : "B"));
             System.out.println("1. Add book  2. Issue  3. Return  4. Display  5. Change library  6. Exit");
             int choice = in.nextInt();
             
             switch (choice) {
-                case 1:
+                case 1 -> {
+                    in.nextLine();
                     System.out.print("Title: ");
                     String title = in.nextLine();
                     System.out.print("Price: ");
@@ -99,43 +96,37 @@ public class Library {
                     System.out.print("Edition: ");
                     int edition = in.nextInt();
                     currentLibrary.addBook(new Book(title, price, edition));
-                    break;
+                }
                     
-                case 2:
+                case 2 -> {
                     System.out.print("Book ID to issue: ");
                     int issueID = in.nextInt();
                     Book toIssue = currentLibrary.getBookByID(issueID, false);
                     if (toIssue != null) currentLibrary.issue(toIssue);
                     else System.out.println("Invalid!\n");
-                    break;
+                }
                     
-                case 3:
+                case 3 -> {
                     System.out.print("Book ID to return: ");
                     int returnID = in.nextInt();
                     Book toReturn = currentLibrary.getBookByID(returnID, true);
-                    if (toReturn != null) currentLibrary.Return(toReturn);
+                    if (toReturn != null) currentLibrary.returnBook(toReturn);
                     else System.out.println("Invalid!\n");
-                    break;
+                }
                     
-                case 4:
-                    currentLibrary.displayBooks();
-                    break;
-                    
-                case 5:
+                case 4 -> currentLibrary.displayBooks();
+
+                case 5 -> {
                     System.out.print("1. Library A  2. Library B\nChoice: ");
                     int libraryChoice = in.nextInt();
                     if (libraryChoice == 1) currentLibrary = A;
                     else if (libraryChoice == 2) currentLibrary = B;
                     else System.out.println("Invalid!\n");
-                    break;
+                }
                     
-                case 6:
-                    Continue = false;
-                    break;
+                case 6 -> continueLoop = false;
                     
-                default:
-                    System.out.println("Invalid choice!\n");
-                    break;
+                default -> System.out.println("Invalid choice!\n");
             }
         }
         in.close();

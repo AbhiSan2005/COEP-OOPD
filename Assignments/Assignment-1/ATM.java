@@ -2,14 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ATM {
-    final int check = 1;
-    final int deposit = 2;
-    final int withdraw = 4;
-    final int transfer = 8;
-    ArrayList<User> users = new ArrayList<>();
+    private static final int CHECK = 1;
+    private static final int DEPOSIT = 2;
+    private static final int WITHDRAW = 4;
+    private static final int TRANSFER = 8;
+    private ArrayList<User> users = new ArrayList<>();
     
     public double check(User user) {
-        if ((user.getUserType().getType() & check) == check) {
+        if ((user.getUserType().getType() & CHECK) == CHECK) {
             return user.getBalance();
         }
         else {
@@ -20,7 +20,7 @@ public class ATM {
     
     public void deposit(User user, double amount) {
         double currentBalance = user.getBalance();
-        if ((user.getUserType().getType() & deposit) == deposit) {
+        if ((user.getUserType().getType() & DEPOSIT) == DEPOSIT) {
             user.setBalance(currentBalance + amount);
         }
         else {
@@ -30,25 +30,13 @@ public class ATM {
     
     public double withdraw(User user, double amount) {
         double currentBalance = user.getBalance();
-        if ((user.getUserType().getType() & withdraw) == withdraw) {
+        if ((user.getUserType().getType() & WITHDRAW) == WITHDRAW) {
             if (amount > currentBalance) {
                 System.out.println("Current Balance Insufficient\n");
-                System.out.println("Would you like to withdraw whatever is left?\n");
-                System.out.println("Yes: 1\nNo: 0\n");
-                Scanner in = new Scanner(System.in);
-                int bool = in.nextInt();
-                in.close();
-                switch (bool) {
-                    case 1:
-                        double remaining = currentBalance;
-                        user.setBalance(0);
-                        return remaining;
-                    case 2:
-                        return 0;
-                    default:
-                        System.out.println("Invalid input\n");
-                        return -1;
-                }
+                System.out.println("Withdrawing remaining amount\n");
+                double remaining = currentBalance;
+                user.setBalance(0);
+                return remaining;
             }
             else {
                 user.setBalance(currentBalance - amount);
@@ -62,17 +50,17 @@ public class ATM {
     }
     
     public void transfer(User from, User to, double amount) {
-        if ((from.getUserType().getType() & transfer) == transfer && (to.getUserType().getType() & transfer) == transfer) {
-            double toBeTaken = withdraw(from, amount);
-            if (toBeTaken > 0) {
-                deposit(to, toBeTaken);
-            }
-        }
-        else if ((from.getUserType().getType() & transfer) != transfer) {
+        if ((from.getUserType().getType() & TRANSFER) != TRANSFER) {
             System.out.println("First User doesn't have the transfer privilege\n");
+            return;
         }
-        else if ((to.getUserType().getType() & transfer) != transfer) {
+        if ((to.getUserType().getType() & TRANSFER) != TRANSFER) {
             System.out.println("Second User doesn't have the transfer privilege\n");
+            return;
+        }
+        double toBeTaken = withdraw(from, amount);
+        if (toBeTaken > 0) {
+            deposit(to, toBeTaken);
         }
     }
 
@@ -104,14 +92,10 @@ public class ATM {
             System.out.println("Premium: 15\nRegular: 7\nBasic: 3");
             int userTypeCode = in.nextInt();
             Type userType = switch (userTypeCode) {
-                case 15:
-                    yield Type.PREMIUM;
-                case 7:
-                    yield Type.REGULAR;
-                case 3:
-                    yield Type.BASIC;
-                default:
-                    yield Type.BASIC;
+                case 15 -> Type.PREMIUM;
+                case 7 -> Type.REGULAR;
+                case 3 -> Type.BASIC;
+                default -> Type.BASIC;
             };
             
             System.out.println("Enter Initial Balance:");
@@ -137,40 +121,40 @@ public class ATM {
             System.out.println("1: Check Balance\n2: Deposit\n4: Withdraw\n8: Transfer\n0: Exit");
             int operation = in.nextInt();
             
-            if (operation == 0) {
-                continueOperations = false;
-            }
-            else if (operation == 1) {
-                double balance = atm.check(currentUser);
-                if (balance >= 0) {
-                    System.out.println(balance);
-                }
-            }
-            else if (operation == 2) {
-                System.out.println("Enter amount:");
-                double amount = in.nextDouble();
-                atm.deposit(currentUser, amount);
-            }
-            else if (operation == 4) {
-                System.out.println("Enter amount:");
-                double amount = in.nextDouble();
-                double withdrawn = atm.withdraw(currentUser, amount);
-            }
-            else if (operation == 8) {
-                System.out.println("Enter the UserID receiving:");
-                int toID = in.nextInt();
-                User toUser = atm.findUserByID(toID);
+            switch (operation) {
+                case 0 -> continueOperations = false;
                 
-                if (toUser == null) {
-                    System.out.println("User not found!");
-                } else {
+                case 1 -> {
+                    double balance = atm.check(currentUser);
+                    if (balance >= 0) System.out.println(balance);
+                }
+                
+                case 2 -> {
                     System.out.println("Enter amount:");
                     double amount = in.nextDouble();
-                    atm.transfer(currentUser, toUser, amount);
+                    atm.deposit(currentUser, amount);
                 }
-            }
-            else {
-                System.out.println("Please Enter the given numbers!");
+                
+                case 4 -> {
+                    System.out.println("Enter amount:");
+                    double amount = in.nextDouble();
+                    atm.withdraw(currentUser, amount);
+                }
+                
+                case 8 -> {
+                    System.out.println("Enter the UserID receiving:");
+                    int toID = in.nextInt();
+                    User toUser = atm.findUserByID(toID);
+                    if (toUser == null) {
+                        System.out.println("User not found!");
+                    } else {
+                        System.out.println("Enter amount:");
+                        double amount = in.nextDouble();
+                        atm.transfer(currentUser, toUser, amount);
+                    }
+                }
+                
+                default -> System.out.println("Please Enter the given numbers!");
             }
         }
         in.close();

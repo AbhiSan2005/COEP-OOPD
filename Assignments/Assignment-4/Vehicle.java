@@ -22,6 +22,11 @@ public abstract class Vehicle {
         else System.out.println("Already On");
     }
 
+    public void start(String msg) {
+        start();
+        System.out.println(msg + '\n');
+    }
+
     public void stop() {
         if (this.isOn) this.isOn = false;
         else System.out.println("Already Off");

@@ -1,16 +1,3 @@
-enum Type {
-    PREMIUM(15), REGULAR(7), BASIC(3);
-    private int type;
-
-    private Type(int type) { 
-        this.type = type;
-    }
-    
-    public int getType() { 
-        return type;
-    }
-}
-
 public class User {
     private static int nextID = 1;
     private int ID;
@@ -36,6 +23,10 @@ public class User {
     }
 
     public void setBalance(double balance) {
+        if (balance < 0) {
+            balance = 0;
+            System.out.println("Balance cannot be less than zero. Resetting to zero");
+        }
         this.money = balance;
     }
 
@@ -43,7 +34,7 @@ public class User {
         return ID;
     }
 
-    public static int advanceID() {
+    private static int advanceID() {
         return nextID++;
     }
 }

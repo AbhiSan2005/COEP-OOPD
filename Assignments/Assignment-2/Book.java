@@ -5,11 +5,11 @@ public class Book {
     private double price;
     private int edition;
     
-    Book(String title, double price) {
+    public Book(String title, double price) {
         this(title, price, 1);
     }
     
-    Book(String title, double price, int edition) {
+    public Book(String title, double price, int edition) {
         this.title = title;
         this.price = price;
         this.edition = edition;
@@ -32,7 +32,7 @@ public class Book {
         return ID;
     }
 
-    public static int advanceID() {
+    private static int advanceID() {
         return nextID++;
     }
     
