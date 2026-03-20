@@ -16,7 +16,9 @@ public class Welcome
 {
     public static void main(String[] args)
     {
-        String greeting = "Welcome to Core Java!";
+        String greeting1 = "Welcome to Core Java!";
+        //These two are very different! Above uses string pool so if another variable has similar string literal it will point to the same memory location. Below creates a new string object in heap memory.
+        String greeting = new String("Welcome to Core Java!");
         //Check out other string methods
         System.out.println(greeting.equals("args"));
         System.out.println(greeting.charAt(0));

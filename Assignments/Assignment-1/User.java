@@ -4,11 +4,11 @@ public class User {
     private Type type; 
     private double money;
 
-    User(Type type) {
+    public User(Type type) {
         this(type, 0);
     }
 
-    User(Type type, double balance) {
+    public User(Type type, double balance) {
         this.type = type;
         this.money = balance;
         this.ID = advanceID();
