@@ -20,7 +20,16 @@ public class Store {
         System.out.println("Cheapest Electronic: " + cheapestElec.getName() + cheapestElec.getPrice());
         System.out.println();
 
+        Grocery cheapestGroc = Inventory.findCheapest(groceryInventory.getItems());
+        System.out.println("Cheapest Grocery: " + cheapestGroc.getName() + cheapestGroc.getPrice());
+        System.out.println();
+
+        Clothing cheapestCloth = Inventory.findCheapest(clothingInventory.getItems());
+        System.out.println("Cheapest Clothing: " + cheapestCloth.getName() + cheapestCloth.getPrice());
+        System.out.println();
+
         Inventory.printSummary(electronicsInventory);
+        Inventory.printSummary(groceryInventory);
         Inventory.printSummary(clothingInventory);
         System.out.println();
     }

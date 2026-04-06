@@ -26,6 +26,10 @@ public class Employees {
         return this.id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getTotalLeaves() {
         return casualLeaves + earnedLeaves + sickLeaves;
     }
