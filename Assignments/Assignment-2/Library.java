@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Library {
-    private ArrayList<Book> books;
-    private ArrayList<Book> issued;
+    private final ArrayList<Book> books;
+    private final ArrayList<Book> issued;
 
     public Library(ArrayList<Book> books) {
         this.books = books;

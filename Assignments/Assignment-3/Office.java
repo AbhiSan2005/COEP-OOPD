@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Office {
-    private ArrayList<Employee> employees;
+    private final ArrayList<Employee> employees;
     
     Office(ArrayList<Employee> employees) {
         this.employees = employees;

@@ -9,18 +9,22 @@ public class Grocery implements StoreItem, Comparable<Grocery> {
         this.weight = weight;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public double getPrice() {
         return price;
     }
 
+    @Override
     public void setPrice(double price) {
         this.price = price;
     }
 
+    @Override
     public void displayInfo() {
         System.out.println("Grocery: " + name + " Price:" + price + " Weight: " + weight);
     }

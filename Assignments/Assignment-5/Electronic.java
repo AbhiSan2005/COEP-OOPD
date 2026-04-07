@@ -11,18 +11,22 @@ public class Electronic implements StoreItem, Comparable<Electronic> {
         this.warrantyYears = warrantyYears;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public double getPrice() {
         return price;
     }
 
+    @Override
     public void setPrice(double price) {
         this.price = price;
     }
 
+    @Override
     public void displayInfo() {
         System.out.println("Electronics: " + name + " Brand: " + brand + " Price: Rs." + price + " Warranty: " + warrantyYears);
     }

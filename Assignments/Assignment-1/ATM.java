@@ -6,7 +6,7 @@ public class ATM {
     private static final int DEPOSIT = 2;
     private static final int WITHDRAW = 4;
     private static final int TRANSFER = 8;
-    private ArrayList<User> users = new ArrayList<>();
+    private final ArrayList<User> users = new ArrayList<>();
     
     public double check(User user) {
         if ((user.getUserType().getType() & CHECK) == CHECK) {
@@ -123,24 +123,20 @@ public class ATM {
             
             switch (operation) {
                 case 0 -> continueOperations = false;
-                
                 case 1 -> {
                     double balance = atm.check(currentUser);
                     if (balance >= 0) System.out.println(balance);
                 }
-                
                 case 2 -> {
                     System.out.println("Enter amount:");
                     double amount = in.nextDouble();
                     atm.deposit(currentUser, amount);
                 }
-                
                 case 4 -> {
                     System.out.println("Enter amount:");
                     double amount = in.nextDouble();
                     atm.withdraw(currentUser, amount);
                 }
-                
                 case 8 -> {
                     System.out.println("Enter the UserID receiving:");
                     int toID = in.nextInt();
@@ -153,7 +149,6 @@ public class ATM {
                         atm.transfer(currentUser, toUser, amount);
                     }
                 }
-                
                 default -> System.out.println("Please Enter the given numbers!");
             }
         }
