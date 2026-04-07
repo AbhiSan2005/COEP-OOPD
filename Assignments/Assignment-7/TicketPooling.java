@@ -1,11 +1,13 @@
-public class TicketBooking {
-    public static void main(String[] args) {
-        TicketSystem system = new TicketSystem();
-        Thread[] users = new Thread[250];
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+public class TicketPooling {
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        TicketSystem system = new TicketSystem();
         for (int i = 0; i < 250; i++) {
             final int userId = i + 1;
-            Runnable userTask = new Runnable() {
+            executorService.execute(new Runnable() {
                 @Override
                 public void run() {
                     system.bookTicket(userId);
@@ -13,19 +15,11 @@ public class TicketBooking {
                         system.cancelTicket(userId);
                     }
                 }
-            };
-            users[i] = new Thread(userTask);
-            users[i].start();
+            });
         }
+        executorService.shutdown();
 
-        for (int i = 0; i < 250; i++) {
-            try {
-                users[i].join();
-            } catch (InterruptedException e) {
-                System.out.println("A thread was interrupted.");
-            }
-        }
-        
         System.out.println("Final available tickets: " + system.getAvailableTickets());
     }
+    
 }
